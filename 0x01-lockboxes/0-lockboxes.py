@@ -18,16 +18,3 @@ def canUnlockAll(boxes):
 
     # Return True if all boxes are opened, otherwise False
     return all(opened)
-
-# Test cases
-# Test case 1: Sequential keys to open each subsequent box
-boxes = [[1], [2], [3], [4], []]
-print(canUnlockAll(boxes))  # Expected output: True, as all boxes can be opened sequentially
-
-# Test case 2: More complex key distribution, but all boxes can be opened
-boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-print(canUnlockAll(boxes))  # Expected output: True, as keys are distributed to open all boxes
-
-# Test case 3: Not all boxes can be opened (boxes[5] and boxes[6] remain closed)
-boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-print(canUnlockAll(boxes))  # Expected output: False, as there are boxes that cannot be reached
