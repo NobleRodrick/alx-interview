@@ -18,7 +18,7 @@ def next_opened_box(opened_boxes):
     return None
 
 
-def can_be_unlocked(boxes):
+def canUnlockAll(boxes):
     """
     Check if all boxes can be opened
     Args:
@@ -29,39 +29,41 @@ def can_be_unlocked(boxes):
     if len(boxes) <= 1 or boxes == [[]]:
         return True
 
-    aux = {}
+    the_dict = {}
     while True:
-        if len(aux) == 0:
-            aux[0] = {
+        if len(the_dict) == 0:
+            the_dict[0] = {
                 'status': 'opened',
                 'keys': boxes[0],
             }
-        keys = next_opened_box(aux)
+        keys = next_opened_box(the_dict)
         if keys:
             for key in keys:
                 try:
-                    if aux.get(key) and aux.get(key).get('status') \
+                    if the_dict.get(key) and the_dict.get(key).get('status') \
                        == 'opened/checked':
                         continue
-                    aux[key] = {
+                    the_dict[key] = {
                         'status': 'opened',
                         'keys': boxes[key]
                     }
                 except (KeyError, IndexError):
                     continue
-        elif 'opened' in [box.get('status') for box in aux.values()]:
+        elif 'opened' in [box.get('status') for box in the_dict.values()]:
             continue
-        elif len(aux) == len(boxes):
+        elif len(the_dict) == len(boxes):
             break
         else:
             return False
 
-    return len(aux) == len(boxes)
+    return len(the_dict) == len(boxes)
 
 
 def main():
-    """Entry point"""
-    can_be_unlocked([[]])
+    """
+    Entry point
+    """
+    canUnlockAll([[]])
 
 
 if __name__ == '__main__':
