@@ -1,1 +1,1 @@
-# Solving the lockbox problem interview sample
+# Dealing with the lockboxes problem
