@@ -3,7 +3,7 @@
 import sys
 
 
-def print_msg(status_code_dict, complete_sizeof_file):
+def print_the_message(status_code_dict, complete_sizeof_file):
     """
     Method to print
     Args:
@@ -47,8 +47,8 @@ try:
                     status_code_dict[code] += 1
 
             if (counter_variable == 10):
-                print_msg(status_code_dict, complete_sizeof_file)
+                print_the_message(status_code_dict, complete_sizeof_file)
                 counter_variable = 0
 
 finally:
-    print_msg(status_code_dict, complete_sizeof_file)
+    print_the_message(status_code_dict, complete_sizeof_file)
