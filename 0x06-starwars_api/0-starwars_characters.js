@@ -1,35 +1,22 @@
 #!/usr/bin/node
 /**
- * Here we are trying to create an api script that will help us
- * to get all the characters of a star wars movie, cool right!!
+ * we are working with te star wars API here
+ * writing a script that wil help give the names of all
+ * star wars characters
  */
 
 const request = require('request');
 
-const movieEndpoint = 'https://swapi-api.alx-tools.com/api/films/' + definedMovieID;
-const definedMovieID = process.argv[2];
-
-function sendRequest (characterList, index) {
-  if (characterList.length === index) {
-    return;
-  }
-
-  request(characterList[index], (error, response, body) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(JSON.parse(body).name);
-      sendRequest(characterList, index + 1);
-    }
-  });
-}
-
-request(movieEndpoint, (error, response, body) => {
-  if (error) {
-    console.log(error);
-  } else {
-    const characterList = JSON.parse(body).characters;
-
-    sendRequest(characterList, 0);
-  }
+request('https://swapi-api.hbtn.io/api/films/' + process.argv[2], function (err, res, body) {
+  if (err) throw err;
+  const actors = JSON.parse(body).characters;
+  exactOrder(actors, 0);
 });
+const exactOrder = (actors, x) => {
+  if (x === actors.length) return;
+  request(actors[x], function (err, res, body) {
+    if (err) throw err;
+    console.log(JSON.parse(body).name);
+    exactOrder(actors, x + 1);
+  });
+};
