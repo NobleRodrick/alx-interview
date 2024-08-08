@@ -1,46 +1,33 @@
 #!/usr/bin/python3
 """
-    0. Prime Game - second_player and first_player are playing a game
+Module for solving prime game question
 """
-
 
 def isWinner(x, nums):
     """
-    x - represents the number of rounds
-    nums - The list of numbers
+    function that checks for the winner
     """
-    if x <= 0 or nums is None:
+    if not nums or x < 1:
         return None
-    if x != len(nums):
-        return None
+    max_num = max(nums)
 
+    game_filter = [True for _ in range(max(max_num + 1, 2))]
+    for i in range(2, int(pow(max_num, 0.5)) + 1):
+        if not game_filter[i]:
+            continue
+        for j in range(i * i, max_num + 1, i):
+            game_filter[j] = False
+    game_filter[0] = game_filter[1] = False
+    y = 0
+    for i in range(len(game_filter)):
+        if game_filter[i]:
+            y += 1
+        game_filter[i] = y
     first_player = 0
-    second_player = 0
-
-    a = [1 for x in range(sorted(nums)[-1] + 1)]
-    a[0], a[1] = 0, 0
-    for i in range(2, len(a)):
-        rm_prime_multiples(a, i)
-
-    for i in nums:
-        if sum(a[0:i + 1]) % 2 == 0:
-            first_player += 1
-        else:
-            second_player += 1
-    if first_player > second_player:
-        return "first_player"
-    if second_player > first_player:
-        return "second_player"
-    return None
-
-
-def rm_prime_multiples(ls, x):
-    """
-    removes multiple
-    of primes
-    """
-    for i in range(2, len(ls)):
-        try:
-            ls[i * x] = 0
-        except (ValueError, IndexError):
-            break
+    for x in nums:
+        first_player += game_filter[x] % 2 == 1
+    if first_player * 2 == len(nums):
+        return None
+    if first_player * 2 > len(nums):
+        return "Maria"
+    return "Ben"
